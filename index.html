@@ -740,6 +740,427 @@
     to { opacity: 1; }
   }
 
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(28,43,30,0.55);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+  .modal-card {
+    background: var(--warm-white);
+    border: 1px solid rgba(74,103,65,0.15);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 480px; width: 100%;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 32px 80px rgba(28,43,30,0.25);
+    transform: translateY(20px);
+    transition: transform 0.35s ease;
+    position: relative;
+  }
+  .modal-overlay.open .modal-card { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 20px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--cream); border: 1px solid rgba(74,103,65,0.15);
+    font-size: 16px; color: var(--muted); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { background: var(--deep-forest); color: var(--cream); border-color: var(--deep-forest); }
+
+  .modal-section-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  }
+  .modal-section-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--deep-forest); color: var(--cream);
+    font-size: 11px; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: background 0.3s;
+  }
+  .modal-section-num.done { background: var(--sage); }
+  .modal-section-title { font-size: 15px; font-weight: 500; color: var(--deep-forest); }
+  .modal-section-sub { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+  .modal-divider {
+    height: 1px; background: rgba(74,103,65,0.12);
+    margin: 24px -40px;
+  }
+
+  .btn-google-modal {
+    width: 100%; padding: 13px 20px;
+    background: white; border: 1px solid rgba(74,103,65,0.15);
+    border-radius: 100px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+    color: var(--deep-forest); cursor: pointer; transition: all 0.2s;
+    margin-bottom: 16px;
+  }
+  .btn-google-modal:hover { border-color: rgba(74,103,65,0.35); box-shadow: 0 4px 12px rgba(28,43,30,0.08); transform: translateY(-1px); }
+
+  .modal-divider-or { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .modal-divider-or-line { flex: 1; height: 1px; background: rgba(74,103,65,0.12); }
+  .modal-divider-or-text { font-size: 12px; color: var(--muted); }
+
+  .modal-field { margin-bottom: 12px; }
+  .modal-field label { font-size: 11px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .modal-field input {
+    width: 100%; padding: 12px 16px;
+    background: var(--cream); border: 1px solid rgba(74,103,65,0.15);
+    border-radius: 12px; font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--deep-forest); outline: none; transition: all 0.2s;
+  }
+  .modal-field input:focus { border-color: rgba(74,103,65,0.4); background: white; }
+  .modal-field input::placeholder { color: rgba(139,136,128,0.7); }
+  .modal-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .partner-section-modal { opacity: 0.4; transition: opacity 0.4s ease; pointer-events: none; }
+  .partner-section-modal.active { opacity: 1; pointer-events: auto; }
+
+  .rel-grid-modal { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+  .rel-card-modal {
+    background: var(--cream); border: 1px solid rgba(74,103,65,0.15);
+    border-radius: 12px; padding: 12px 8px;
+    cursor: pointer; transition: all 0.2s; text-align: center;
+  }
+  .rel-card-modal:hover { border-color: rgba(74,103,65,0.35); }
+  .rel-card-modal.selected { border-color: var(--sage); background: rgba(74,103,65,0.05); }
+  .rel-card-modal.selected .rel-name-modal { color: var(--sage); }
+  .rel-icon-modal { font-size: 18px; margin-bottom: 5px; display: block; }
+  .rel-name-modal { font-size: 11px; font-weight: 500; color: var(--deep-forest); line-height: 1.3; }
+
+  .partner-input-row-modal { display: flex; gap: 8px; margin-bottom: 12px; }
+  .partner-input-row-modal .modal-field { flex: 1; margin-bottom: 0; }
+  .btn-invite-modal {
+    padding: 0 16px; height: 44px; margin-top: 22px;
+    background: var(--deep-forest); color: var(--cream);
+    border: none; border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+  }
+  .btn-invite-modal:hover { background: var(--sage); }
+
+  .modal-or-link-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .modal-or-link-line { flex: 1; height: 1px; background: rgba(74,103,65,0.12); }
+  .modal-or-link-text { font-size: 11px; color: var(--muted); white-space: nowrap; }
+
+  .invite-link-box-modal {
+    background: var(--cream); border: 1px solid rgba(74,103,65,0.15);
+    border-radius: 10px; padding: 10px 14px;
+    display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+  }
+  .invite-link-url-modal { flex: 1; font-size: 11px; color: var(--muted); font-family: monospace; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .copy-btn-modal {
+    font-size: 11px; padding: 4px 12px;
+    background: var(--deep-forest); color: var(--cream);
+    border: none; border-radius: 100px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all 0.2s; white-space: nowrap;
+  }
+  .copy-btn-modal:hover { background: var(--sage); }
+  .copy-btn-modal.copied { background: var(--moss); }
+
+  .share-row-modal { display: flex; gap: 6px; margin-bottom: 16px; }
+  .share-btn-modal {
+    flex: 1; padding: 8px 4px;
+    background: var(--cream); border: 1px solid rgba(74,103,65,0.15);
+    border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 11px; color: var(--muted); cursor: pointer;
+    transition: all 0.2s; text-align: center;
+  }
+  .share-btn-modal:hover { border-color: rgba(74,103,65,0.35); color: var(--deep-forest); }
+
+  .skip-partner-modal { font-size: 12px; color: var(--muted); text-align: center; cursor: pointer; margin-bottom: 4px; }
+  .skip-partner-modal:hover { color: var(--deep-forest); }
+  .skip-partner-modal span { text-decoration: underline; text-underline-offset: 2px; }
+
+  .waiting-banner-modal {
+    display: none; margin-bottom: 12px;
+    background: rgba(74,103,65,0.06); border: 1px solid rgba(74,103,65,0.2);
+    border-radius: 10px; padding: 10px 14px;
+    align-items: center; gap: 8px;
+    font-size: 12px; color: var(--sage);
+  }
+  .waiting-banner-modal.show { display: flex; }
+  .waiting-dot-modal { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); animation: blink 1.2s ease infinite; flex-shrink: 0; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .btn-create-modal {
+    width: 100%; padding: 14px;
+    background: var(--deep-forest); color: var(--cream);
+    border: none; border-radius: 100px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: all 0.3s; margin-top: 8px;
+  }
+  .btn-create-modal:hover { background: var(--sage); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(74,103,65,0.25); }
+
+  .modal-footer-note { text-align: center; margin-top: 16px; font-size: 12px; color: var(--muted); }
+  .modal-footer-note a { color: var(--sage); cursor: pointer; text-decoration: none; }
+  .modal-footer-note a:hover { text-decoration: underline; }
+
+  /* ── ONBOARDING OVERLAY ── */
+  .onboarding-overlay {
+    position: fixed; inset: 0; z-index: 600;
+    background: var(--cream);
+    transform: translateY(100%);
+    transition: transform 0.55s cubic-bezier(0.32, 0.72, 0, 1);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .onboarding-overlay.slide-in { transform: translateY(0); }
+
+  .ob-nav {
+    padding: 20px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border, rgba(74,103,65,0.15));
+    background: rgba(245,240,232,0.94);
+    backdrop-filter: blur(12px);
+    flex-shrink: 0;
+  }
+  .ob-logo { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 400; color: var(--deep-forest); }
+  .ob-logo span { color: var(--sage); font-style: italic; }
+  .ob-progress { display: flex; align-items: center; gap: 8px; }
+  .ob-step { width: 28px; height: 4px; background: rgba(74,103,65,0.15); border-radius: 100px; transition: background 0.4s; }
+  .ob-step.active { background: var(--sage); }
+  .ob-step.done { background: var(--moss); opacity: 0.5; }
+  .ob-step-label { font-size: 12px; color: var(--muted); margin-left: 8px; }
+
+  .ob-body { flex: 1; overflow-y: auto; }
+
+  /* screens inside onboarding */
+  .ob-screen { display: none; min-height: 100%; }
+  .ob-screen.ob-visible { display: flex; flex-direction: column; }
+
+  /* welcome */
+  .ob-welcome { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 24px; }
+  .ob-welcome-inner { max-width: 560px; width: 100%; text-align: center; }
+  .ob-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sage); margin-bottom: 24px; opacity: 0; animation: obFadeUp 0.6s ease 0.1s forwards; }
+  .ob-headline { font-family: 'Fraunces', serif; font-size: clamp(36px,5vw,56px); font-weight: 300; line-height: 1.1; color: var(--deep-forest); letter-spacing: -1.5px; margin-bottom: 20px; opacity: 0; animation: obFadeUp 0.6s ease 0.2s forwards; }
+  .ob-headline em { font-style: italic; color: var(--sage); }
+  .ob-sub { font-size: 16px; line-height: 1.7; color: #5A5A55; margin-bottom: 36px; opacity: 0; animation: obFadeUp 0.6s ease 0.3s forwards; }
+  .ob-partners-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 100px; padding: 8px 16px 8px 8px; opacity: 0; animation: obFadeUp 0.6s ease 0.4s forwards; }
+  .ob-avatars { display: flex; }
+  .ob-av { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: white; border: 2px solid var(--cream); }
+  .ob-av:nth-child(2) { margin-left: -8px; }
+  .ob-av-sage { background: var(--sage); }
+  .ob-av-terra { background: var(--terracotta); }
+  .ob-badge-text { font-size: 13px; color: var(--muted); }
+  .ob-badge-text strong { color: var(--deep-forest); font-weight: 500; }
+
+  /* question screens */
+  .ob-q { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 52px 24px 140px; }
+  .ob-q-inner { max-width: 660px; width: 100%; animation: obFadeUp 0.45s ease forwards; }
+  .ob-pillar { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .ob-pillar-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .ob-q-headline { font-family: 'Fraunces', serif; font-size: clamp(28px,4vw,42px); font-weight: 300; line-height: 1.15; color: var(--deep-forest); letter-spacing: -1px; margin-bottom: 10px; }
+  .ob-q-headline em { font-style: italic; color: var(--sage); }
+  .ob-q-sub { font-size: 15px; color: var(--muted); margin-bottom: 36px; line-height: 1.6; }
+
+  /* bottom bar */
+  .ob-bottom {
+    position: sticky; bottom: 0; left: 0; right: 0;
+    padding: 18px 48px;
+    background: rgba(245,240,232,0.94);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(74,103,65,0.15);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-shrink: 0;
+  }
+  .ob-btn-back { background: transparent; border: 1px solid rgba(74,103,65,0.15); color: var(--muted); padding: 12px 24px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+  .ob-btn-back:hover { border-color: rgba(74,103,65,0.35); color: var(--deep-forest); }
+  .ob-btn-next { background: var(--deep-forest); color: var(--cream); padding: 14px 36px; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; border: none; transition: all 0.3s; letter-spacing: 0.2px; }
+  .ob-btn-next:hover { background: var(--sage); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(74,103,65,0.25); }
+  .ob-btn-next:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; background: var(--deep-forest); }
+  .ob-hint { font-size: 12px; color: var(--muted); }
+
+  /* Q1 census blocks */
+  .ob-census { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 16px; margin-bottom: 10px; overflow: hidden; }
+  .ob-census-hdr { display: flex; align-items: center; gap: 14px; padding: 16px 20px; cursor: pointer; transition: background 0.15s; }
+  .ob-census-hdr:hover { background: rgba(74,103,65,0.03); }
+  .ob-census-icon { font-size: 20px; width: 32px; text-align: center; flex-shrink: 0; }
+  .ob-census-info { flex: 1; }
+  .ob-census-name { font-size: 14px; font-weight: 500; color: var(--deep-forest); margin-bottom: 2px; }
+  .ob-census-summary { font-size: 12px; color: var(--muted); }
+  .ob-census-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(74,103,65,0.2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: transparent; transition: all 0.2s; }
+  .ob-census.ob-selected .ob-census-check { background: var(--sage); border-color: var(--sage); color: white; }
+  .ob-census-detail { display: none; padding: 0 20px 18px; border-top: 1px solid rgba(74,103,65,0.1); }
+  .ob-census.ob-open .ob-census-detail { display: block; }
+  .ob-census.ob-open .ob-census-hdr { background: rgba(74,103,65,0.03); }
+  .ob-field-label { font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin: 14px 0 8px; display: block; }
+  .ob-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ob-pill { font-size: 12px; padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(74,103,65,0.15); background: var(--cream); color: var(--muted); cursor: pointer; transition: all 0.15s; }
+  .ob-pill:hover { border-color: rgba(74,103,65,0.35); color: var(--deep-forest); }
+  .ob-pill.ob-active { background: var(--deep-forest); color: var(--cream); border-color: var(--deep-forest); }
+  .ob-counter-row { display: flex; align-items: center; gap: 12px; margin: 14px 0 10px; }
+  .ob-counter-label { font-size: 13px; color: var(--deep-forest); flex: 1; }
+  .ob-counter-btns { display: flex; align-items: center; gap: 10px; }
+  .ob-counter-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(74,103,65,0.15); background: var(--cream); font-size: 16px; color: var(--deep-forest); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .ob-counter-btn:hover { border-color: var(--sage); color: var(--sage); }
+  .ob-counter-val { font-size: 18px; font-weight: 500; color: var(--deep-forest); min-width: 20px; text-align: center; }
+  .ob-kid-ages { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  .ob-kid-row { display: flex; align-items: center; gap: 10px; }
+  .ob-kid-label { font-size: 12px; color: var(--muted); min-width: 44px; }
+  .ob-age-input { width: 64px; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(74,103,65,0.15); background: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--deep-forest); outline: none; text-align: center; }
+  .ob-age-input:focus { border-color: var(--sage); }
+
+  /* Q2 */
+  .ob-work-block { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 16px; padding: 20px 22px; margin-bottom: 20px; }
+  .ob-work-title { font-size: 13px; font-weight: 500; color: var(--deep-forest); margin-bottom: 16px; }
+  .ob-work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .ob-work-col { display: flex; flex-direction: column; gap: 8px; }
+  .ob-work-name { font-size: 12px; font-weight: 500; }
+  .ob-status-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+  .ob-status-pill { font-size: 11px; padding: 4px 10px; border-radius: 100px; border: 1px solid rgba(74,103,65,0.15); background: var(--cream); color: var(--muted); cursor: pointer; transition: all 0.15s; }
+  .ob-status-pill:hover { border-color: rgba(74,103,65,0.35); color: var(--deep-forest); }
+  .ob-status-pill.ob-active { background: var(--sage); color: white; border-color: var(--sage); }
+  .ob-hrs-row { display: flex; align-items: center; gap: 8px; }
+  .ob-hrs-row label { font-size: 12px; color: var(--muted); }
+  .ob-hrs-row input { width: 56px; padding: 5px 8px; border-radius: 8px; border: 1px solid rgba(74,103,65,0.15); background: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--deep-forest); outline: none; text-align: center; }
+  .ob-hrs-row input:focus { border-color: var(--sage); }
+  .ob-hrs-row span { font-size: 12px; color: var(--muted); }
+  .ob-section-lbl { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; display: block; }
+  .ob-cats { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .ob-cat { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 16px; padding: 18px 20px; }
+  .ob-cat-name { font-size: 14px; font-weight: 500; color: var(--deep-forest); margin-bottom: 12px; }
+  .ob-split-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; }
+  .ob-split-me { color: var(--sage); font-weight: 500; }
+  .ob-split-them { color: var(--terracotta); font-weight: 500; }
+  .ob-slider { -webkit-appearance: none; width: 100%; height: 6px; border-radius: 100px; outline: none; cursor: pointer; }
+  .ob-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: white; border: 2px solid var(--sage); box-shadow: 0 2px 8px rgba(28,43,30,0.15); cursor: grab; }
+  .ob-sentiment { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px solid rgba(74,103,65,0.08); margin-top: 10px; }
+  .ob-sentiment-lbl { font-size: 11px; color: var(--muted); margin-right: 4px; }
+  .ob-sent-btn { font-size: 18px; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid rgba(74,103,65,0.15); background: var(--cream); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; line-height: 1; }
+  .ob-sent-btn:hover { border-color: rgba(74,103,65,0.4); transform: scale(1.1); }
+  .ob-sent-btn.ob-active { border-color: var(--sage); background: rgba(74,103,65,0.08); transform: scale(1.1); }
+  .ob-tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding-top: 12px; border-top: 1px solid rgba(74,103,65,0.1); margin-top: 12px; }
+  .ob-tools-lbl { font-size: 11px; color: var(--muted); margin-right: 2px; }
+  .ob-chip { background: var(--cream); border: 1px solid rgba(74,103,65,0.15); border-radius: 100px; padding: 3px 10px; font-size: 11px; color: var(--soft-black); cursor: pointer; transition: all 0.15s; }
+  .ob-chip:hover { border-color: var(--sage); color: var(--sage); }
+  .ob-chip.ob-active { background: var(--sage); color: white; border-color: var(--sage); }
+
+  /* Q3 stress */
+  .ob-stress-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .ob-stress-card { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 14px; padding: 16px 14px; cursor: pointer; transition: all 0.2s; text-align: left; }
+  .ob-stress-card:hover { border-color: rgba(74,103,65,0.35); }
+  .ob-stress-card.ob-selected { border-color: var(--sage); background: rgba(74,103,65,0.04); }
+  .ob-stress-emoji { font-size: 20px; margin-bottom: 8px; display: block; }
+  .ob-stress-title { font-size: 13px; font-weight: 500; color: var(--deep-forest); margin-bottom: 3px; }
+  .ob-stress-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .ob-stress-other { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 14px; padding: 16px; display: none; margin-bottom: 14px; }
+  .ob-stress-other textarea { width: 100%; background: transparent; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; color: var(--deep-forest); resize: none; line-height: 1.6; min-height: 72px; }
+  .ob-stress-other textarea::placeholder { color: var(--muted); }
+
+  /* Q4 dreams */
+  .ob-inspo-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .ob-inspo { font-size: 12px; padding: 6px 14px; border-radius: 100px; border: 1px dashed rgba(74,103,65,0.3); color: var(--muted); background: transparent; cursor: pointer; transition: all 0.2s; font-style: italic; }
+  .ob-inspo:hover { border-color: var(--sage); color: var(--sage); background: rgba(74,103,65,0.04); }
+  .ob-dream-wrap { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 16px; padding: 20px 22px; transition: border-color 0.2s; }
+  .ob-dream-wrap:focus-within { border-color: rgba(74,103,65,0.35); }
+  .ob-dream-lbl { font-size: 12px; color: var(--muted); margin-bottom: 10px; display: block; }
+  .ob-dream-ta { width: 100%; background: transparent; border: none; outline: none; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 300; color: var(--deep-forest); resize: none; line-height: 1.7; min-height: 100px; }
+  .ob-dream-ta::placeholder { color: rgba(139,136,128,0.6); font-style: italic; }
+
+  /* loading */
+  .ob-loading { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; text-align: center; }
+  .ob-orb { width: 72px; height: 72px; border-radius: 50%; background: var(--sage); margin: 0 auto 32px; position: relative; animation: obPulse 2s ease infinite; }
+  .ob-orb::after { content: ''; position: absolute; inset: -10px; border-radius: 50%; border: 2px solid rgba(74,103,65,0.2); animation: obRipple 2s ease infinite; }
+  @keyframes obPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+  @keyframes obRipple { 0% { transform: scale(0.9); opacity: 1; } 100% { transform: scale(1.4); opacity: 0; } }
+  .ob-loading-headline { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 300; color: var(--deep-forest); letter-spacing: -0.5px; margin-bottom: 10px; }
+  .ob-loading-headline em { font-style: italic; color: var(--sage); }
+  .ob-loading-sub { font-size: 15px; color: var(--muted); margin-bottom: 40px; }
+  .ob-loading-steps { display: flex; flex-direction: column; gap: 12px; max-width: 340px; width: 100%; text-align: left; }
+  .ob-lstep { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); opacity: 0; transition: opacity 0.4s; }
+  .ob-lstep.ob-visible { opacity: 1; }
+  .ob-lstep.ob-done { color: var(--sage); }
+  .ob-lstep-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(74,103,65,0.2); flex-shrink: 0; transition: background 0.3s; }
+  .ob-lstep.ob-done .ob-lstep-dot { background: var(--sage); }
+  .ob-lstep.ob-lactive .ob-lstep-dot { background: var(--gold); animation: obBlink 0.8s ease infinite; }
+  @keyframes obBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* ── LOAD MAP REVEAL ── */
+  .ob-reveal { flex: 1; display: flex; flex-direction: column; }
+  .ob-reveal-hero {
+    background: var(--deep-forest); padding: 52px 32px 44px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .ob-reveal-hero::before { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(74,103,65,0.18) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+  .ob-reveal-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--moss); margin-bottom: 20px; }
+  .ob-reveal-headline { font-family: 'Fraunces', serif; font-size: clamp(22px,4vw,34px); font-weight: 300; color: var(--cream); letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 8px; }
+  .ob-reveal-headline em { font-style: italic; color: var(--moss); }
+  .ob-reveal-sub { font-size: 14px; color: rgba(245,240,232,0.5); line-height: 1.6; margin-bottom: 28px; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .ob-reveal-pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .ob-reveal-pill { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 8px 16px; display: flex; align-items: center; gap: 8px; }
+  .ob-reveal-pill-av { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: white; }
+  .ob-reveal-pill-av-sage { background: var(--sage); }
+  .ob-reveal-pill-av-terra { background: var(--terracotta); }
+  .ob-reveal-pill-text { font-size: 12px; color: rgba(245,240,232,0.7); }
+  .ob-reveal-pill-text strong { color: var(--cream); font-weight: 500; }
+
+  .ob-reveal-body { flex: 1; overflow-y: auto; padding: 32px 24px 120px; max-width: 640px; margin: 0 auto; width: 100%; }
+
+  .ob-reveal-section { margin-bottom: 28px; }
+  .ob-reveal-section-lbl { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; display: block; }
+
+  .ob-balance-card { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 16px; padding: 20px 22px; margin-bottom: 10px; }
+  .ob-balance-track { height: 10px; background: rgba(74,103,65,0.08); border-radius: 100px; position: relative; overflow: hidden; margin: 12px 0 16px; }
+  .ob-balance-fill-a { position: absolute; left: 0; top: 0; height: 100%; background: var(--sage); border-radius: 100px; width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+  .ob-balance-fill-b { position: absolute; right: 0; top: 0; height: 100%; background: var(--terracotta); opacity: 0.5; border-radius: 100px; width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1) 0.2s; }
+  .ob-balance-midline { position: absolute; left: 50%; top: -2px; bottom: -2px; width: 2px; background: var(--cream); border-radius: 1px; }
+  .ob-balance-partners { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ob-balance-partner { display: flex; align-items: center; gap: 8px; }
+  .ob-balance-av { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: white; flex-shrink: 0; }
+  .ob-bal-name { font-size: 13px; font-weight: 500; color: var(--deep-forest); }
+  .ob-bal-load { font-size: 11px; color: var(--muted); }
+
+  .ob-cat-bars { display: flex; flex-direction: column; gap: 12px; }
+  .ob-cat-bar-row { }
+  .ob-cat-bar-hdr { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+  .ob-cat-bar-name { font-weight: 500; color: var(--deep-forest); }
+  .ob-cat-bar-signal { font-size: 11px; color: var(--muted); }
+  .ob-cat-bar-track { height: 8px; background: rgba(74,103,65,0.08); border-radius: 100px; overflow: hidden; position: relative; }
+  .ob-cat-bar-fill { height: 100%; background: var(--sage); border-radius: 100px; width: 0; transition: width 1s ease; }
+
+  .ob-align-rows { display: flex; flex-direction: column; gap: 8px; }
+  .ob-align-row { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; }
+  .ob-align-cat-name { font-size: 13px; font-weight: 500; color: var(--deep-forest); flex: 1; }
+  .ob-align-badge { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 100px; display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+  .ob-badge-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .ob-badge-sync { background: rgba(74,103,65,0.08); color: var(--sage); }
+  .ob-badge-sync .ob-badge-dot { background: var(--sage); }
+  .ob-badge-diff { background: rgba(212,168,83,0.12); color: #9A6F20; }
+  .ob-badge-diff .ob-badge-dot { background: var(--gold); }
+  .ob-badge-gap { background: rgba(196,101,74,0.08); color: var(--terracotta); }
+  .ob-badge-gap .ob-badge-dot { background: var(--terracotta); }
+
+  .ob-start-cards { display: flex; flex-direction: column; gap: 10px; }
+  .ob-start-card { background: var(--warm-white); border: 1px solid rgba(74,103,65,0.15); border-radius: 14px; padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; }
+  .ob-start-icon { font-size: 20px; flex-shrink: 0; }
+  .ob-start-body { flex: 1; }
+  .ob-start-title { font-size: 14px; font-weight: 500; color: var(--deep-forest); margin-bottom: 3px; }
+  .ob-start-desc { font-size: 12px; color: var(--muted); line-height: 1.55; }
+  .ob-start-tag { display: inline-block; margin-top: 6px; font-size: 11px; padding: 3px 8px; border-radius: 100px; background: rgba(74,103,65,0.08); color: var(--sage); }
+  .ob-start-tag-gold { background: rgba(212,168,83,0.12); color: #9A6F20; }
+
+  .ob-upgrade-card { background: var(--deep-forest); border-radius: 18px; padding: 28px 24px; text-align: center; margin-bottom: 10px; }
+  .ob-upgrade-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--moss); margin-bottom: 12px; }
+  .ob-upgrade-headline { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 300; color: var(--cream); letter-spacing: -0.5px; line-height: 1.3; margin-bottom: 10px; }
+  .ob-upgrade-headline em { font-style: italic; color: var(--gold); }
+  .ob-upgrade-sub { font-size: 13px; color: rgba(245,240,232,0.5); line-height: 1.6; margin-bottom: 22px; }
+  .ob-upgrade-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; text-align: left; }
+  .ob-upgrade-feature { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(245,240,232,0.7); }
+  .ob-upgrade-feature-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--moss); flex-shrink: 0; }
+  .ob-upgrade-btn { width: 100%; padding: 14px; background: var(--cream); color: var(--deep-forest); border: none; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+  .ob-upgrade-btn:hover { background: white; transform: translateY(-1px); }
+  .ob-upgrade-note { font-size: 12px; color: rgba(245,240,232,0.3); margin-top: 10px; }
+
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; }
@@ -759,7 +1180,7 @@
 <!-- NAV -->
 <nav>
   <div class="logo">Trysil<span>.AI</span></div>
-  <button class="nav-cta">Join the waitlist</button>
+  <button class="nav-cta" onclick="openModal()">Join the waitlist</button>
 </nav>
 
 <!-- HERO -->
@@ -777,7 +1198,7 @@
       The first family OS that runs the logistics, balances the load between partners, and makes sure you don't lose yourself along the way.
     </p>
     <div class="hero-actions">
-      <button class="btn-primary">Join the waitlist</button>
+      <button class="btn-primary" onclick="openModal()">Join the waitlist</button>
       <span class="btn-secondary">See how it works →</span>
     </div>
   </div>
@@ -956,7 +1377,7 @@
   <h2 class="cta-headline">Carry less.<br><em>Live more.</em></h2>
   <p class="cta-sub">Join the waitlist and be first to experience a new kind of family OS.</p>
   <div class="cta-buttons">
-    <button class="btn-light">Join the waitlist</button>
+    <button class="btn-light" onclick="openModal()">Join the waitlist</button>
     <button class="btn-ghost">Learn more</button>
   </div>
 </section>
@@ -966,6 +1387,766 @@
   <div class="footer-logo">Trysil<span>.AI</span></div>
   <p class="footer-copy">© 2026 Trysil.AI · Share the invisible load.</p>
 </footer>
+
+<!-- ── ONBOARDING OVERLAY ── -->
+<div class="onboarding-overlay" id="obOverlay">
+
+  <div class="ob-nav">
+    <div class="ob-logo">Trysil<span>.AI</span></div>
+    <div class="ob-progress">
+      <div class="ob-step" id="ob-p1"></div>
+      <div class="ob-step" id="ob-p2"></div>
+      <div class="ob-step" id="ob-p3"></div>
+      <div class="ob-step" id="ob-p4"></div>
+      <span class="ob-step-label" id="ob-plabel"></span>
+    </div>
+  </div>
+
+  <div class="ob-body" id="obBody">
+
+    <!-- WELCOME -->
+    <div class="ob-screen ob-visible" id="obs0">
+      <div class="ob-welcome">
+        <div class="ob-welcome-inner">
+          <p class="ob-eyebrow">You're in</p>
+          <h2 class="ob-headline">Let's build your<br><em>family's</em> Load Map.</h2>
+          <p class="ob-sub">Four quick questions. In five minutes you'll see your family clearly — maybe for the first time.</p>
+          <div class="ob-partners-badge">
+            <div class="ob-avatars">
+              <div class="ob-av ob-av-sage" id="obAvA">S</div>
+              <div class="ob-av ob-av-terra" id="obAvB">M</div>
+            </div>
+            <span class="ob-badge-text"><strong id="obBadgeNames">Both signed up</strong> ✓</span>
+          </div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <span class="ob-hint">Takes about 5 minutes</span>
+        <button class="ob-btn-next" onclick="obGoTo(1)">Let's begin →</button>
+      </div>
+    </div>
+
+    <!-- Q1 WHO'S IN YOUR WORLD -->
+    <div class="ob-screen" id="obs1">
+      <div class="ob-q">
+        <div class="ob-q-inner">
+          <div class="ob-pillar" style="color:var(--terracotta)">
+            <div class="ob-pillar-dot" style="background:var(--terracotta)"></div>
+            Relationship · Q1 of 4
+          </div>
+          <h2 class="ob-q-headline">Who's in<br><em>your world?</em></h2>
+          <p class="ob-q-sub">Tell us about everyone you're responsible for. This shapes your Load Map.</p>
+
+          <div class="ob-census ob-selected ob-open" id="obc-partner">
+            <div class="ob-census-hdr" onclick="obToggleCensus('obc-partner')">
+              <div class="ob-census-icon">💑</div>
+              <div class="ob-census-info"><div class="ob-census-name">Your Trysil partner</div><div class="ob-census-summary" id="obs-partner">Spouse / Partner</div></div>
+              <div class="ob-census-check">✓</div>
+            </div>
+            <div class="ob-census-detail">
+              <span class="ob-field-label">Relationship type</span>
+              <div class="ob-pills">
+                <span class="ob-pill ob-active" onclick="obSelectPill(this); document.getElementById('obs-partner').textContent=this.textContent">Spouse / Partner</span>
+                <span class="ob-pill" onclick="obSelectPill(this); document.getElementById('obs-partner').textContent=this.textContent">Co-parenting</span>
+                <span class="ob-pill" onclick="obSelectPill(this); document.getElementById('obs-partner').textContent=this.textContent">Divorced</span>
+                <span class="ob-pill" onclick="obSelectPill(this); document.getElementById('obs-partner').textContent=this.textContent">Nanny / Au pair</span>
+                <span class="ob-pill" onclick="obSelectPill(this); document.getElementById('obs-partner').textContent=this.textContent">Single parent</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ob-census ob-selected ob-open" id="obc-kids">
+            <div class="ob-census-hdr" onclick="obToggleCensus('obc-kids')">
+              <div class="ob-census-icon">👧</div>
+              <div class="ob-census-info"><div class="ob-census-name">Kids</div><div class="ob-census-summary" id="obs-kids">2 kids</div></div>
+              <div class="ob-census-check">✓</div>
+            </div>
+            <div class="ob-census-detail">
+              <div class="ob-counter-row">
+                <span class="ob-counter-label">How many kids?</span>
+                <div class="ob-counter-btns">
+                  <button class="ob-counter-btn" onclick="obChangeCount('kids',-1)">−</button>
+                  <span class="ob-counter-val" id="ob-count-kids">2</span>
+                  <button class="ob-counter-btn" onclick="obChangeCount('kids',1)">+</button>
+                </div>
+              </div>
+              <div class="ob-kid-ages" id="ob-kid-ages">
+                <div class="ob-kid-row"><span class="ob-kid-label">Kid 1</span><input type="number" class="ob-age-input" placeholder="Age" min="0" max="18" value="4"><span style="font-size:12px;color:var(--muted)">yrs</span></div>
+                <div class="ob-kid-row"><span class="ob-kid-label">Kid 2</span><input type="number" class="ob-age-input" placeholder="Age" min="0" max="18" value="8"><span style="font-size:12px;color:var(--muted)">yrs</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ob-census" id="obc-pets">
+            <div class="ob-census-hdr" onclick="obToggleCensus('obc-pets')">
+              <div class="ob-census-icon">🐾</div>
+              <div class="ob-census-info"><div class="ob-census-name">Pets</div><div class="ob-census-summary" id="obs-pets">Tap to add</div></div>
+              <div class="ob-census-check">✓</div>
+            </div>
+            <div class="ob-census-detail">
+              <div class="ob-counter-row">
+                <span class="ob-counter-label">How many pets?</span>
+                <div class="ob-counter-btns">
+                  <button class="ob-counter-btn" onclick="obChangeCount('pets',-1)">−</button>
+                  <span class="ob-counter-val" id="ob-count-pets">1</span>
+                  <button class="ob-counter-btn" onclick="obChangeCount('pets',1)">+</button>
+                </div>
+              </div>
+              <span class="ob-field-label">Type</span>
+              <div class="ob-pills">
+                <span class="ob-pill ob-active" onclick="this.classList.toggle('ob-active')">Dog</span>
+                <span class="ob-pill" onclick="this.classList.toggle('ob-active')">Cat</span>
+                <span class="ob-pill" onclick="this.classList.toggle('ob-active')">Other</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ob-census" id="obc-parents">
+            <div class="ob-census-hdr" onclick="obToggleCensus('obc-parents')">
+              <div class="ob-census-icon">👴</div>
+              <div class="ob-census-info"><div class="ob-census-name">Aging parents</div><div class="ob-census-summary" id="obs-parents">Tap to add</div></div>
+              <div class="ob-census-check">✓</div>
+            </div>
+            <div class="ob-census-detail">
+              <div class="ob-counter-row">
+                <span class="ob-counter-label">How many are you supporting?</span>
+                <div class="ob-counter-btns">
+                  <button class="ob-counter-btn" onclick="obChangeCount('parents',-1)">−</button>
+                  <span class="ob-counter-val" id="ob-count-parents">1</span>
+                  <button class="ob-counter-btn" onclick="obChangeCount('parents',1)">+</button>
+                </div>
+              </div>
+              <span class="ob-field-label">Whose parents?</span>
+              <div class="ob-pills">
+                <span class="ob-pill ob-active" onclick="obSelectPill(this)">Mine</span>
+                <span class="ob-pill" onclick="obSelectPill(this)">Partner's</span>
+                <span class="ob-pill" onclick="obSelectPill(this)">Both</span>
+              </div>
+              <span class="ob-field-label">Level of involvement</span>
+              <div class="ob-pills">
+                <span class="ob-pill ob-active" onclick="obSelectPill(this)">Occasional help</span>
+                <span class="ob-pill" onclick="obSelectPill(this)">Regular caregiving</span>
+                <span class="ob-pill" onclick="obSelectPill(this)">Living with us</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ob-census" id="obc-other">
+            <div class="ob-census-hdr" onclick="obToggleCensus('obc-other')">
+              <div class="ob-census-icon">🤝</div>
+              <div class="ob-census-info"><div class="ob-census-name">Other dependents</div><div class="ob-census-summary">Tap to add</div></div>
+              <div class="ob-census-check">✓</div>
+            </div>
+            <div class="ob-census-detail">
+              <span class="ob-field-label" style="margin-top:14px">Who else relies on you?</span>
+              <div class="ob-dream-wrap" style="margin-top:0"><textarea class="ob-dream-ta" style="min-height:60px" placeholder="e.g. a sibling, a family member..."></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <button class="ob-btn-back" onclick="obGoTo(0)">← Back</button>
+        <button class="ob-btn-next" onclick="obGoTo(2)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Q2 WHO HANDLES WHAT -->
+    <div class="ob-screen" id="obs2">
+      <div class="ob-q">
+        <div class="ob-q-inner">
+          <div class="ob-pillar" style="color:var(--sage)">
+            <div class="ob-pillar-dot" style="background:var(--sage)"></div>
+            Family · Q2 of 4
+          </div>
+          <h2 class="ob-q-headline">Who handles<br><em>what today?</em></h2>
+          <p class="ob-q-sub">Drag each slider to show the real split. Be honest — this is just for you two.</p>
+
+          <div class="ob-work-block">
+            <div class="ob-work-title">💼 Work & income</div>
+            <div class="ob-work-grid">
+              <div class="ob-work-col">
+                <div class="ob-work-name" style="color:var(--sage)" id="ob-wname-a">Sarah</div>
+                <div class="ob-status-pills">
+                  <span class="ob-status-pill ob-active" onclick="obSelectStatus(this)">Full time</span>
+                  <span class="ob-status-pill" onclick="obSelectStatus(this)">Part time</span>
+                  <span class="ob-status-pill" onclick="obSelectStatus(this)">Self-employed</span>
+                  <span class="ob-status-pill" onclick="obSelectStatus(this)">Not working</span>
+                </div>
+                <div class="ob-hrs-row"><label>Hrs/week:</label><input type="number" value="40" min="0" max="100"><span>hrs</span></div>
+              </div>
+              <div class="ob-work-col">
+                <div class="ob-work-name" style="color:var(--terracotta)" id="ob-wname-b">Marcus</div>
+                <div class="ob-status-pills">
+                  <span class="ob-status-pill ob-active" onclick="obSelectStatus(this)">Full time</span>
+                  <span class="ob-status-pill" onclick="obSelectStatus(this)">Part time</span>
+                  <span class="ob-status-pill" onclick="obSelectStatus(this)">Self-employed</span>
+                  <span class="ob-status-pill" onclick="obSelectStatus(this)">Not working</span>
+                </div>
+                <div class="ob-hrs-row"><label>Hrs/week:</label><input type="number" value="45" min="0" max="100"><span>hrs</span></div>
+              </div>
+            </div>
+          </div>
+
+          <span class="ob-section-lbl">Home responsibilities</span>
+          <div class="ob-cats">
+            <div class="ob-cat"><div class="ob-cat-name">🏫 School & activities</div><div class="ob-split-row"><span class="ob-split-me" id="ob-me-school">Sarah 80%</span><span class="ob-split-them" id="ob-them-school">Marcus 20%</span></div><input type="range" class="ob-slider" min="0" max="100" value="80" id="ob-sl-school" oninput="obSlider('school',this.value)"><div class="ob-sentiment"><span class="ob-sentiment-lbl">How do you feel about it?</span><button class="ob-sent-btn" onclick="obSentiment(this,'school','enjoy')" title="I enjoy it">😊</button><button class="ob-sent-btn" onclick="obSentiment(this,'school','neutral')" title="Neutral">😐</button><button class="ob-sent-btn ob-active" onclick="obSentiment(this,'school','dislike')" title="I dislike it">😩</button></div><div class="ob-tools"><span class="ob-tools-lbl">Tools:</span><span class="ob-chip ob-active" onclick="this.classList.toggle('ob-active')">Gmail</span><span class="ob-chip ob-active" onclick="this.classList.toggle('ob-active')">Bloomz</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">ClassDojo</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Remind</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">ParentSquare</span></div></div>
+            <div class="ob-cat"><div class="ob-cat-name">🍽️ Meals & groceries</div><div class="ob-split-row"><span class="ob-split-me" id="ob-me-meals">Sarah 70%</span><span class="ob-split-them" id="ob-them-meals">Marcus 30%</span></div><input type="range" class="ob-slider" min="0" max="100" value="70" id="ob-sl-meals" oninput="obSlider('meals',this.value)"><div class="ob-sentiment"><span class="ob-sentiment-lbl">How do you feel about it?</span><button class="ob-sent-btn ob-active" onclick="obSentiment(this,'meals','enjoy')" title="I enjoy it">😊</button><button class="ob-sent-btn" onclick="obSentiment(this,'meals','neutral')" title="Neutral">😐</button><button class="ob-sent-btn" onclick="obSentiment(this,'meals','dislike')" title="I dislike it">😩</button></div><div class="ob-tools"><span class="ob-tools-lbl">Tools:</span><span class="ob-chip ob-active" onclick="this.classList.toggle('ob-active')">Alexa</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">AnyList</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">OurGroceries</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Instacart</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Walmart+</span></div></div>
+            <div class="ob-cat"><div class="ob-cat-name">🏃 Sports & activities</div><div class="ob-split-row"><span class="ob-split-me" id="ob-me-sports">Sarah 40%</span><span class="ob-split-them" id="ob-them-sports">Marcus 60%</span></div><input type="range" class="ob-slider" min="0" max="100" value="40" id="ob-sl-sports" oninput="obSlider('sports',this.value)"><div class="ob-sentiment"><span class="ob-sentiment-lbl">How do you feel about it?</span><button class="ob-sent-btn" onclick="obSentiment(this,'sports','enjoy')" title="I enjoy it">😊</button><button class="ob-sent-btn ob-active" onclick="obSentiment(this,'sports','neutral')" title="Neutral">😐</button><button class="ob-sent-btn" onclick="obSentiment(this,'sports','dislike')" title="I dislike it">😩</button></div><div class="ob-tools"><span class="ob-tools-lbl">Tools:</span><span class="ob-chip ob-active" onclick="this.classList.toggle('ob-active')">SportsEngine</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">TeamSnap</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">GameChanger</span></div></div>
+            <div class="ob-cat"><div class="ob-cat-name">🏥 Health & appointments</div><div class="ob-split-row"><span class="ob-split-me" id="ob-me-health">Sarah 65%</span><span class="ob-split-them" id="ob-them-health">Marcus 35%</span></div><input type="range" class="ob-slider" min="0" max="100" value="65" id="ob-sl-health" oninput="obSlider('health',this.value)"><div class="ob-sentiment"><span class="ob-sentiment-lbl">How do you feel about it?</span><button class="ob-sent-btn" onclick="obSentiment(this,'health','enjoy')" title="I enjoy it">😊</button><button class="ob-sent-btn" onclick="obSentiment(this,'health','neutral')" title="Neutral">😐</button><button class="ob-sent-btn ob-active" onclick="obSentiment(this,'health','dislike')" title="I dislike it">😩</button></div><div class="ob-tools"><span class="ob-tools-lbl">Tools:</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">MyChart</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Zocdoc</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Headspace</span></div></div>
+            <div class="ob-cat"><div class="ob-cat-name">🏠 Home & admin</div><div class="ob-split-row"><span class="ob-split-me" id="ob-me-home">Sarah 60%</span><span class="ob-split-them" id="ob-them-home">Marcus 40%</span></div><input type="range" class="ob-slider" min="0" max="100" value="60" id="ob-sl-home" oninput="obSlider('home',this.value)"><div class="ob-sentiment"><span class="ob-sentiment-lbl">How do you feel about it?</span><button class="ob-sent-btn" onclick="obSentiment(this,'home','enjoy')" title="I enjoy it">😊</button><button class="ob-sent-btn ob-active" onclick="obSentiment(this,'home','neutral')" title="Neutral">😐</button><button class="ob-sent-btn" onclick="obSentiment(this,'home','dislike')" title="I dislike it">😩</button></div><div class="ob-tools"><span class="ob-tools-lbl">Tools:</span><span class="ob-chip ob-active" onclick="this.classList.toggle('ob-active')">Gmail</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Google Cal</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Notion</span></div></div>
+            <div class="ob-cat"><div class="ob-cat-name">💰 Finances</div><div class="ob-split-row"><span class="ob-split-me" id="ob-me-finances">Sarah 55%</span><span class="ob-split-them" id="ob-them-finances">Marcus 45%</span></div><input type="range" class="ob-slider" min="0" max="100" value="55" id="ob-sl-finances" oninput="obSlider('finances',this.value)"><div class="ob-sentiment"><span class="ob-sentiment-lbl">How do you feel about it?</span><button class="ob-sent-btn" onclick="obSentiment(this,'finances','enjoy')" title="I enjoy it">😊</button><button class="ob-sent-btn" onclick="obSentiment(this,'finances','neutral')" title="Neutral">😐</button><button class="ob-sent-btn ob-active" onclick="obSentiment(this,'finances','dislike')" title="I dislike it">😩</button></div><div class="ob-tools"><span class="ob-tools-lbl">Tools:</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">YNAB</span><span class="ob-chip ob-active" onclick="this.classList.toggle('ob-active')">Mint</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Copilot</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Monarch</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Bank app</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Fidelity</span><span class="ob-chip" onclick="this.classList.toggle('ob-active')">Vanguard</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <button class="ob-btn-back" onclick="obGoTo(1)">← Back</button>
+        <button class="ob-btn-next" onclick="obGoTo(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Q3 STRESS -->
+    <div class="ob-screen" id="obs3">
+      <div class="ob-q">
+        <div class="ob-q-inner">
+          <div class="ob-pillar" style="color:var(--moss)">
+            <div class="ob-pillar-dot" style="background:var(--moss)"></div>
+            You · Q3 of 4
+          </div>
+          <h2 class="ob-q-headline">What's your biggest<br><em>source of stress</em> right now?</h2>
+          <p class="ob-q-sub">Just for you. Your partner answers this separately on their device.</p>
+          <div class="ob-stress-grid">
+            <div class="ob-stress-card" onclick="obSelectStress(this)"><span class="ob-stress-emoji">⏰</span><div class="ob-stress-title">Not enough time</div><div class="ob-stress-desc">Always behind, never caught up</div></div>
+            <div class="ob-stress-card" onclick="obSelectStress(this)"><span class="ob-stress-emoji">⚖️</span><div class="ob-stress-title">Unequal load</div><div class="ob-stress-desc">Feeling like I carry more than my share</div></div>
+            <div class="ob-stress-card" onclick="obSelectStress(this)"><span class="ob-stress-emoji">🧠</span><div class="ob-stress-title">Mental load</div><div class="ob-stress-desc">Remembering everything for everyone</div></div>
+            <div class="ob-stress-card" onclick="obSelectStress(this)"><span class="ob-stress-emoji">❤️</span><div class="ob-stress-title">Being the parent I want to be</div><div class="ob-stress-desc">Not enough presence, just logistics</div></div>
+            <div class="ob-stress-card" onclick="obSelectStress(this)"><span class="ob-stress-emoji">💚</span><div class="ob-stress-title">Losing myself</div><div class="ob-stress-desc">No time left for what matters to me</div></div>
+            <div class="ob-stress-card" onclick="obSelectStress(this)"><span class="ob-stress-emoji">💑</span><div class="ob-stress-title">Our relationship</div><div class="ob-stress-desc">We coordinate but don't connect</div></div>
+            <div class="ob-stress-card" onclick="obSelectStress(this)"><span class="ob-stress-emoji">💸</span><div class="ob-stress-title">Financial pressure</div><div class="ob-stress-desc">Money is a constant source of worry</div></div>
+            <div class="ob-stress-card" onclick="obSelectStress(this,'other')"><span class="ob-stress-emoji">✏️</span><div class="ob-stress-title">Something else</div><div class="ob-stress-desc">Let me describe it</div></div>
+          </div>
+          <div class="ob-stress-other" id="ob-stress-other"><textarea placeholder="What's weighing on you most right now?"></textarea></div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <button class="ob-btn-back" onclick="obGoTo(2)">← Back</button>
+        <button class="ob-btn-next" id="ob-btn-stress" onclick="obGoTo(4)" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- Q4 DREAMS -->
+    <div class="ob-screen" id="obs4">
+      <div class="ob-q">
+        <div class="ob-q-inner">
+          <div class="ob-pillar" style="color:var(--gold)">
+            <div class="ob-pillar-dot" style="background:var(--gold)"></div>
+            Dreams · Q4 of 4
+          </div>
+          <h2 class="ob-q-headline">What would feel like<br><em>a win</em> in 30 days?</h2>
+          <p class="ob-q-sub">Don't overthink it — first thing that comes to mind. Your partner answers this separately.</p>
+          <div class="ob-inspo-row">
+            <span class="ob-inspo" onclick="obInspo('A date night')">A date night</span>
+            <span class="ob-inspo" onclick="obInspo('Sleeping in on a Saturday')">Sleeping in</span>
+            <span class="ob-inspo" onclick="obInspo('A meal I didn\'t have to cook')">A meal I didn't cook</span>
+            <span class="ob-inspo" onclick="obInspo('One morning completely to myself')">A morning to myself</span>
+            <span class="ob-inspo" onclick="obInspo('Finishing a book')">Finishing a book</span>
+            <span class="ob-inspo" onclick="obInspo('Going for a run without feeling guilty')">A guilt-free run</span>
+            <span class="ob-inspo" onclick="obInspo('A fun day out with the kids')">A fun day with the kids</span>
+            <span class="ob-inspo" onclick="obInspo('An hour at my favourite coffee shop')">My favourite coffee shop</span>
+            <span class="ob-inspo" onclick="obInspo('A weekend trip, just us')">A weekend trip</span>
+            <span class="ob-inspo" onclick="obInspo('Finishing a project I\'ve been putting off')">Finishing a project</span>
+          </div>
+          <div class="ob-dream-wrap">
+            <span class="ob-dream-lbl">In your own words…</span>
+            <textarea class="ob-dream-ta" id="ob-dream-ta" placeholder="What would make you exhale?" oninput="obCheckDream()"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="ob-bottom">
+        <button class="ob-btn-back" onclick="obGoTo(3)">← Back</button>
+        <button class="ob-btn-next" id="ob-btn-dream" onclick="obGoLoading()" disabled>Build our Load Map →</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="ob-screen" id="obs5">
+      <div class="ob-loading">
+        <div class="ob-orb"></div>
+        <h2 class="ob-loading-headline">Building your<br><em>Load Map…</em></h2>
+        <p class="ob-loading-sub">Give us 60 seconds while we read your family.</p>
+        <div class="ob-loading-steps">
+          <div class="ob-lstep" id="ob-ls1"><div class="ob-lstep-dot"></div><span>Reading your answers</span></div>
+          <div class="ob-lstep" id="ob-ls2"><div class="ob-lstep-dot"></div><span>Scanning Gmail for family events</span></div>
+          <div class="ob-lstep" id="ob-ls3"><div class="ob-lstep-dot"></div><span>Finding tasks & appointments</span></div>
+          <div class="ob-lstep" id="ob-ls4"><div class="ob-lstep-dot"></div><span>Calculating your total load</span></div>
+          <div class="ob-lstep" id="ob-ls5"><div class="ob-lstep-dot"></div><span>Preparing your Load Map</span></div>
+        </div>
+      </div>
+    </div><!-- /obs5 loading -->
+
+    <!-- LOAD MAP REVEAL -->
+    <div class="ob-screen" id="obs6">
+      <div class="ob-reveal">
+        <div class="ob-reveal-hero">
+          <p class="ob-reveal-eyebrow">Your Load Map</p>
+          <h2 class="ob-reveal-headline">Your family load is<br><em>out of balance.</em></h2>
+          <p class="ob-reveal-sub">Here's a clear picture of where things stand — and where there's room to shift.</p>
+          <div class="ob-reveal-pills">
+            <div class="ob-reveal-pill">
+              <div class="ob-reveal-pill-av ob-reveal-pill-av-sage">S</div>
+              <div class="ob-reveal-pill-text"><strong>Sarah</strong> · higher load</div>
+            </div>
+            <div class="ob-reveal-pill">
+              <div class="ob-reveal-pill-av ob-reveal-pill-av-terra">M</div>
+              <div class="ob-reveal-pill-text"><strong>Marcus</strong> · lower load</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ob-reveal-body">
+
+          <!-- BALANCE BAR -->
+          <div class="ob-reveal-section">
+            <span class="ob-reveal-section-lbl">Family balance</span>
+            <div class="ob-balance-card">
+              <div style="font-size:13px;color:var(--muted);margin-bottom:4px">Home responsibilities split</div>
+              <div class="ob-balance-track">
+                <div class="ob-balance-fill-a" id="ob-bal-a"></div>
+                <div class="ob-balance-fill-b" id="ob-bal-b"></div>
+                <div class="ob-balance-midline"></div>
+              </div>
+              <div class="ob-balance-partners">
+                <div class="ob-balance-partner">
+                  <div class="ob-balance-av ob-reveal-pill-av-sage" style="background:var(--sage);color:white">S</div>
+                  <div><div class="ob-bal-name">Sarah</div><div class="ob-bal-load">More of the home load</div></div>
+                </div>
+                <div class="ob-balance-partner">
+                  <div class="ob-balance-av ob-reveal-pill-av-terra" style="background:var(--terracotta);color:white">M</div>
+                  <div><div class="ob-bal-name">Marcus</div><div class="ob-bal-load">More paid work hours</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CATEGORY BREAKDOWN -->
+          <div class="ob-reveal-section">
+            <span class="ob-reveal-section-lbl">Where the load lives</span>
+            <div class="ob-balance-card">
+              <div class="ob-cat-bars">
+                <div class="ob-cat-bar-row"><div class="ob-cat-bar-hdr"><span class="ob-cat-bar-name">🏫 School & activities</span><span class="ob-cat-bar-signal">Heavily imbalanced</span></div><div class="ob-cat-bar-track"><div class="ob-cat-bar-fill" data-w="85"></div></div></div>
+                <div class="ob-cat-bar-row"><div class="ob-cat-bar-hdr"><span class="ob-cat-bar-name">🍽️ Meals & groceries</span><span class="ob-cat-bar-signal">Significant imbalance</span></div><div class="ob-cat-bar-track"><div class="ob-cat-bar-fill" data-w="70"></div></div></div>
+                <div class="ob-cat-bar-row"><div class="ob-cat-bar-hdr"><span class="ob-cat-bar-name">🏥 Health & appointments</span><span class="ob-cat-bar-signal">Some imbalance</span></div><div class="ob-cat-bar-track"><div class="ob-cat-bar-fill" data-w="65"></div></div></div>
+                <div class="ob-cat-bar-row"><div class="ob-cat-bar-hdr"><span class="ob-cat-bar-name">🏠 Home & admin</span><span class="ob-cat-bar-signal">Some imbalance</span></div><div class="ob-cat-bar-track"><div class="ob-cat-bar-fill" data-w="60"></div></div></div>
+                <div class="ob-cat-bar-row"><div class="ob-cat-bar-hdr"><span class="ob-cat-bar-name">💰 Finances</span><span class="ob-cat-bar-signal">Roughly balanced</span></div><div class="ob-cat-bar-track"><div class="ob-cat-bar-fill" data-w="55"></div></div></div>
+                <div class="ob-cat-bar-row"><div class="ob-cat-bar-hdr"><span class="ob-cat-bar-name">🏃 Sports & activities</span><span class="ob-cat-bar-signal">Marcus does more</span></div><div class="ob-cat-bar-track"><div class="ob-cat-bar-fill" data-w="40"></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ALIGNMENT -->
+          <div class="ob-reveal-section">
+            <span class="ob-reveal-section-lbl">How in sync are you?</span>
+            <div class="ob-align-rows">
+              <div class="ob-align-row"><span class="ob-align-cat-name">🏫 School & activities</span><div class="ob-align-badge ob-badge-gap"><div class="ob-badge-dot"></div>Different views</div></div>
+              <div class="ob-align-row"><span class="ob-align-cat-name">🍽️ Meals & groceries</span><div class="ob-align-badge ob-badge-diff"><div class="ob-badge-dot"></div>Slight difference</div></div>
+              <div class="ob-align-row"><span class="ob-align-cat-name">🏃 Sports & activities</span><div class="ob-align-badge ob-badge-sync"><div class="ob-badge-dot"></div>In sync</div></div>
+              <div class="ob-align-row"><span class="ob-align-cat-name">🏥 Health & appointments</span><div class="ob-align-badge ob-badge-diff"><div class="ob-badge-dot"></div>Slight difference</div></div>
+              <div class="ob-align-row"><span class="ob-align-cat-name">🏠 Home & admin</span><div class="ob-align-badge ob-badge-sync"><div class="ob-badge-dot"></div>In sync</div></div>
+              <div class="ob-align-row"><span class="ob-align-cat-name">💰 Finances</span><div class="ob-align-badge ob-badge-sync"><div class="ob-badge-dot"></div>In sync</div></div>
+            </div>
+          </div>
+
+          <!-- WHERE TO START -->
+          <div class="ob-reveal-section">
+            <span class="ob-reveal-section-lbl">Where to start</span>
+            <div class="ob-start-cards">
+              <div class="ob-start-card">
+                <span class="ob-start-icon">😩</span>
+                <div class="ob-start-body">
+                  <div class="ob-start-title">School admin — high load, low enjoyment</div>
+                  <div class="ob-start-desc">This is the biggest imbalance and you've flagged it as something you dislike. The best place to start rebalancing — and you see it differently, so a conversation will help.</div>
+                  <span class="ob-start-tag">Biggest opportunity</span>
+                </div>
+              </div>
+              <div class="ob-start-card">
+                <span class="ob-start-icon">💬</span>
+                <div class="ob-start-body">
+                  <div class="ob-start-title">You see school differently — worth talking about</div>
+                  <div class="ob-start-desc">You have different perspectives on how the school load is split right now. A shared calendar and weekly summary could close that gap.</div>
+                  <span class="ob-start-tag">Conversation starter</span>
+                </div>
+              </div>
+              <div class="ob-start-card">
+                <span class="ob-start-icon">🌙</span>
+                <div class="ob-start-body">
+                  <div class="ob-start-title">Your 30-day win — a date night</div>
+                  <div class="ob-start-desc">You both want more connection. That's where Trysil can help most right now — creating space, not just shifting tasks.</div>
+                  <span class="ob-start-tag ob-start-tag-gold">Your win</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- UPGRADE CTA -->
+          <div class="ob-upgrade-card">
+            <p class="ob-upgrade-eyebrow">Complete your setup</p>
+            <h3 class="ob-upgrade-headline">Turn these insights<br>into <em>real action.</em></h3>
+            <p class="ob-upgrade-sub">Connect your tools and let Trysil do the heavy lifting — automatically.</p>
+            <div class="ob-upgrade-features">
+              <div class="ob-upgrade-feature"><div class="ob-upgrade-feature-dot"></div>Gmail parsing — Trysil finds tasks & events automatically</div>
+              <div class="ob-upgrade-feature"><div class="ob-upgrade-feature-dot"></div>Daily briefings — a morning summary for both partners</div>
+              <div class="ob-upgrade-feature"><div class="ob-upgrade-feature-dot"></div>Smart rebalancing — Trysil shifts tasks based on your load</div>
+            </div>
+            <button class="ob-upgrade-btn">Complete setup — it's free for 30 days</button>
+            <p class="ob-upgrade-note">Then $9/mo · Cancel any time</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ob-body -->
+</div><!-- /onboarding-overlay -->
+
+<!-- ── SIGNUP MODAL ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal-card" id="modalCard">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <!-- SECTION 1: YOUR ACCOUNT -->
+    <div class="modal-section-header">
+      <div class="modal-section-num" id="mNum1">1</div>
+      <div>
+        <div class="modal-section-title">Create your account</div>
+        <div class="modal-section-sub">You'll both have equal access from day one</div>
+      </div>
+    </div>
+
+    <button class="btn-google-modal" onclick="handleGoogleModal()">
+      <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <div class="modal-divider-or">
+      <div class="modal-divider-or-line"></div>
+      <span class="modal-divider-or-text">or</span>
+      <div class="modal-divider-or-line"></div>
+    </div>
+
+    <div class="modal-field-row">
+      <div class="modal-field">
+        <label>First name</label>
+        <input type="text" placeholder="Sarah" id="mFirstName" oninput="checkModalForm()">
+      </div>
+      <div class="modal-field">
+        <label>Last name</label>
+        <input type="text" placeholder="Chen" oninput="checkModalForm()">
+      </div>
+    </div>
+    <div class="modal-field">
+      <label>Email</label>
+      <input type="email" placeholder="you@gmail.com" id="mEmail" oninput="checkModalForm()">
+    </div>
+    <div class="modal-field">
+      <label>Password</label>
+      <input type="password" placeholder="At least 8 characters" id="mPassword" oninput="checkModalForm()">
+    </div>
+
+    <div class="modal-divider"></div>
+
+    <!-- SECTION 2: TRYSIL PARTNER -->
+    <div class="modal-section-header">
+      <div class="modal-section-num" id="mNum2">2</div>
+      <div>
+        <div class="modal-section-title">Add your Trysil partner</div>
+        <div class="modal-section-sub">Who are you sharing the load with?</div>
+      </div>
+    </div>
+
+    <div class="partner-section-modal" id="mPartnerSection">
+
+      <div class="rel-grid-modal">
+        <div class="rel-card-modal selected" onclick="selectRelModal(this)">
+          <span class="rel-icon-modal">💑</span>
+          <div class="rel-name-modal">Spouse / Partner</div>
+        </div>
+        <div class="rel-card-modal" onclick="selectRelModal(this)">
+          <span class="rel-icon-modal">🏠🏠</span>
+          <div class="rel-name-modal">Co-parenting</div>
+        </div>
+        <div class="rel-card-modal" onclick="selectRelModal(this)">
+          <span class="rel-icon-modal">👶</span>
+          <div class="rel-name-modal">Nanny / Au pair</div>
+        </div>
+        <div class="rel-card-modal" onclick="selectRelModal(this)">
+          <span class="rel-icon-modal">👴</span>
+          <div class="rel-name-modal">Caregiver</div>
+        </div>
+        <div class="rel-card-modal" onclick="selectRelModal(this)">
+          <span class="rel-icon-modal">🤝</span>
+          <div class="rel-name-modal">Other</div>
+        </div>
+      </div>
+
+      <div class="partner-input-row-modal">
+        <div class="modal-field">
+          <label>Their email</label>
+          <input type="email" placeholder="partner@gmail.com" id="mPartnerEmail" oninput="handleModalPartnerEmail()">
+        </div>
+        <button class="btn-invite-modal" onclick="sendModalInvite()">Send invite</button>
+      </div>
+
+      <div class="modal-or-link-row">
+        <div class="modal-or-link-line"></div>
+        <span class="modal-or-link-text">or share a link</span>
+        <div class="modal-or-link-line"></div>
+      </div>
+
+      <div class="invite-link-box-modal">
+        <span class="invite-link-url-modal">trysil.ai/join/s8f2k9x</span>
+        <button class="copy-btn-modal" id="mCopyBtn" onclick="copyModalLink()">Copy link</button>
+      </div>
+      <div class="share-row-modal">
+        <button class="share-btn-modal">📱 Text</button>
+        <button class="share-btn-modal">✉️ Email</button>
+        <button class="share-btn-modal">💬 WhatsApp</button>
+      </div>
+
+      <div class="waiting-banner-modal" id="mWaitingBanner">
+        <div class="waiting-dot-modal"></div>
+        <span>Invite sent — waiting for your partner to sign up…</span>
+      </div>
+
+      <p class="skip-partner-modal" onclick="skipModalPartner()">
+        <span>Set up solo for now</span> — add a partner later
+      </p>
+
+    </div>
+
+    <button class="btn-create-modal" id="mBtnCreate" onclick="createModalAccount()">Create account & send invite →</button>
+
+    <p class="modal-footer-note">Already have an account? <a onclick="closeModal()">Sign in</a></p>
+  </div>
+</div>
+
+<script>
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  function checkModalForm() {
+    const first = document.getElementById('mFirstName').value.trim();
+    const email = document.getElementById('mEmail').value.trim();
+    const pass  = document.getElementById('mPassword').value;
+    const valid = first.length > 0 && email.includes('@') && pass.length >= 8;
+    const ps = document.getElementById('mPartnerSection');
+    ps.classList.toggle('active', valid);
+    const num = document.getElementById('mNum1');
+    num.classList.toggle('done', valid);
+    num.textContent = valid ? '✓' : '1';
+  }
+
+  function handleGoogleModal() {
+    document.getElementById('mFirstName').value = 'Sarah';
+    document.getElementById('mEmail').value = 'sarah@gmail.com';
+    document.getElementById('mPassword').value = 'googleauth';
+    checkModalForm();
+  }
+
+  function selectRelModal(el) {
+    document.querySelectorAll('.rel-card-modal').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function handleModalPartnerEmail() {
+    const val = document.getElementById('mPartnerEmail').value;
+    document.getElementById('mBtnCreate').textContent = val.includes('@')
+      ? 'Create account & send invite →'
+      : 'Create account →';
+  }
+
+  function sendModalInvite() {
+    const email = document.getElementById('mPartnerEmail').value;
+    if (!email.includes('@')) return;
+    document.getElementById('mWaitingBanner').classList.add('show');
+  }
+
+  function copyModalLink() {
+    const btn = document.getElementById('mCopyBtn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy link'; btn.classList.remove('copied'); }, 2000);
+  }
+
+  function skipModalPartner() {
+    document.getElementById('mPartnerSection').style.opacity = '0.4';
+    document.getElementById('mBtnCreate').textContent = 'Create account →';
+  }
+
+  function createModalAccount() {
+    // grab name from signup for welcome screen personalisation
+    const first = document.getElementById('mFirstName').value.trim() || 'You';
+    closeModal();
+    setTimeout(() => {
+      // personalise welcome badge
+      document.getElementById('obAvA').textContent = first.charAt(0).toUpperCase();
+      document.getElementById('obBadgeNames').textContent = first + ' — signed up';
+      // slide up onboarding
+      const ob = document.getElementById('obOverlay');
+      ob.style.display = 'flex';
+      ob.style.flexDirection = 'column';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => ob.classList.add('slide-in'));
+      });
+      document.body.style.overflow = 'hidden';
+      obInitSliders();
+    }, 300);
+  }
+
+  // ── ONBOARDING LOGIC ──
+  let obCurrent = 0;
+  const OB_PROGRESS = { 1:0, 2:1, 3:2, 4:3 };
+
+  function obGoTo(n) {
+    document.getElementById('obs' + obCurrent).classList.remove('ob-visible');
+    document.getElementById('obs' + n).classList.add('ob-visible');
+    obCurrent = n;
+    obUpdateProgress();
+    document.getElementById('obBody').scrollTop = 0;
+    if (n === 6) setTimeout(obAnimateReveal, 200);
+  }
+
+  function obUpdateProgress() {
+    ['ob-p1','ob-p2','ob-p3','ob-p4'].forEach((id,i) => {
+      const el = document.getElementById(id);
+      el.classList.remove('active','done');
+      const idx = OB_PROGRESS[obCurrent];
+      if (idx === undefined) return;
+      if (i < idx) el.classList.add('done');
+      else if (i === idx) el.classList.add('active');
+    });
+    const labels = ['Q1 of 4','Q2 of 4','Q3 of 4','Q4 of 4'];
+    const idx = OB_PROGRESS[obCurrent];
+    document.getElementById('ob-plabel').textContent = idx !== undefined ? labels[idx] : '';
+  }
+
+  function obToggleCensus(id) {
+    const b = document.getElementById(id);
+    const wasOpen = b.classList.contains('ob-open');
+    document.querySelectorAll('.ob-census').forEach(c => c.classList.remove('ob-open'));
+    if (!wasOpen) b.classList.add('ob-open','ob-selected');
+  }
+
+  function obSelectPill(el) {
+    el.closest('.ob-pills').querySelectorAll('.ob-pill').forEach(p => p.classList.remove('ob-active'));
+    el.classList.add('ob-active');
+  }
+
+  function obChangeCount(type, delta) {
+    const el = document.getElementById('ob-count-' + type);
+    let val = Math.max(0, parseInt(el.textContent) + delta);
+    el.textContent = val;
+    if (type === 'kids') {
+      const c = document.getElementById('ob-kid-ages');
+      c.innerHTML = '';
+      for (let i = 1; i <= val; i++) {
+        c.innerHTML += `<div class="ob-kid-row"><span class="ob-kid-label">Kid ${i}</span><input type="number" class="ob-age-input" placeholder="Age" min="0" max="18"><span style="font-size:12px;color:var(--muted)">yrs</span></div>`;
+      }
+    }
+    const s = document.getElementById('obs-' + type);
+    const map = { kids: val + ' kid' + (val!==1?'s':''), pets: val + ' pet' + (val!==1?'s':''), parents: val + ' parent' + (val!==1?'s':'') + ' supported' };
+    if (s && map[type]) s.textContent = map[type];
+  }
+
+  function obSelectStatus(el) {
+    el.closest('.ob-status-pills').querySelectorAll('.ob-status-pill').forEach(p => p.classList.remove('ob-active'));
+    el.classList.add('ob-active');
+  }
+
+  function obSlider(cat, val) {
+    val = parseInt(val);
+    const a = document.getElementById('ob-me-' + cat);
+    const b = document.getElementById('ob-them-' + cat);
+    const names = { school:['Sarah','Marcus'], meals:['Sarah','Marcus'], sports:['Sarah','Marcus'], health:['Sarah','Marcus'], home:['Sarah','Marcus'], finances:['Sarah','Marcus'] };
+    const [na, nb] = names[cat] || ['Me','Partner'];
+    a.textContent = na + ' ' + val + '%';
+    b.textContent = nb + ' ' + (100-val) + '%';
+    document.getElementById('ob-sl-' + cat).style.background = `linear-gradient(to right, var(--sage) ${val}%, rgba(196,101,74,0.4) ${val}%)`;
+  }
+
+  function obInitSliders() {
+    [['school','80'],['meals','70'],['sports','40'],['health','65'],['home','60'],['finances','55']]
+      .forEach(([c,v]) => obSlider(c,v));
+  }
+
+  function obSelectStress(el, type) {
+    document.querySelectorAll('#obs3 .ob-stress-card').forEach(c => c.classList.remove('ob-selected'));
+    el.classList.add('ob-selected');
+    document.getElementById('ob-btn-stress').disabled = false;
+    document.getElementById('ob-stress-other').style.display = type === 'other' ? 'block' : 'none';
+  }
+
+  function obInspo(text) {
+    const ta = document.getElementById('ob-dream-ta');
+    ta.value = text;
+    document.getElementById('ob-btn-dream').disabled = false;
+    ta.focus();
+  }
+
+  function obCheckDream() {
+    document.getElementById('ob-btn-dream').disabled =
+      document.getElementById('ob-dream-ta').value.trim().length === 0;
+  }
+
+  function obGoLoading() {
+    obGoTo(5);
+    const steps = ['ob-ls1','ob-ls2','ob-ls3','ob-ls4','ob-ls5'];
+    const show  = [400,1400,2600,4000,5500];
+    const done  = [1300,2500,3900,5400,6800];
+    steps.forEach((id,i) => {
+      setTimeout(() => { const el=document.getElementById(id); el.classList.add('ob-visible','ob-lactive'); }, show[i]);
+      setTimeout(() => { const el=document.getElementById(id); el.classList.remove('ob-lactive'); el.classList.add('ob-done'); }, done[i]);
+    });
+    // transition to reveal after loading completes
+    setTimeout(() => obGoTo(6), 7400);
+  }
+
+  function obSentiment(el, cat, feeling) {
+    el.closest('.ob-sentiment').querySelectorAll('.ob-sent-btn').forEach(b => b.classList.remove('ob-active'));
+    el.classList.add('ob-active');
+  }
+
+  function obAnimateReveal() {
+    // balance bar
+    setTimeout(() => {
+      const a = document.getElementById('ob-bal-a');
+      const b = document.getElementById('ob-bal-b');
+      if (a) a.style.width = '73%';
+      if (b) b.style.width = '47%';
+    }, 300);
+    // category bars
+    setTimeout(() => {
+      document.querySelectorAll('.ob-cat-bar-fill').forEach(bar => {
+        const w = bar.dataset.w;
+        if (w) bar.style.width = w + '%';
+      });
+    }, 600);
+  }
+
+</script>
 
 </body>
 </html>
