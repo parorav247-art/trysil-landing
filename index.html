@@ -1909,7 +1909,7 @@
       </div>
 
       <div class="invite-link-box-modal">
-        <span class="invite-link-url-modal">trysil.ai/join/s8f2k9x</span>
+        <span class="invite-link-url-modal">trysilai.com/join/s8f2k9x</span>
         <button class="copy-btn-modal" id="mCopyBtn" onclick="copyModalLink()">Copy link</button>
       </div>
       <div class="share-row-modal">
@@ -1993,7 +1993,7 @@
   async function handleGoogleModal() {
     const { error } = await _supabase.auth.signInWithOAuth({
       provider: 'google',
-      options:  { redirectTo: 'https://trysil.ai' }
+      options:  { redirectTo: 'https://trysilai.com' }
     });
     if (error) console.error('Google OAuth error:', error.message);
   }
@@ -2015,7 +2015,7 @@
         partner_name: first || 'Your partner',
         subject:      `${first || 'Someone'} wants to take your family's pulse`,
         message:      `${first || 'Your partner'} has signed up for Trysil.AI and wants you to complete the Family Pulse together.`,
-        app_url:      'https://trysil.ai'
+        app_url:      'https://trysilai.com'
       });
     } catch (err) {
       console.warn('Invite send failed:', err);
@@ -2025,7 +2025,7 @@
 
   function copyModalLink() {
     const btn = document.getElementById('mCopyBtn');
-    navigator.clipboard.writeText('https://trysil.ai').catch(() => {});
+    navigator.clipboard.writeText('https://trysilai.com').catch(() => {});
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Copy link'; btn.classList.remove('copied'); }, 2000);
@@ -2066,7 +2066,7 @@
         partner_name: first,
         subject:      `${first} wants to take your family's pulse`,
         message:      `${first} has signed up for Trysil.AI and wants you to take the Family Pulse together. It takes about 5 minutes.`,
-        app_url:      'https://trysil.ai'
+        app_url:      'https://trysilai.com'
       });
     } catch (err) {
       console.error('Account creation error:', err);
