@@ -1986,8 +1986,9 @@
       // Always update nav with user's name
       _updateNav(first);
 
-      // Only act on a fresh OAuth return (hash has access_token)
-      if (window.location.hash.includes('access_token')) {
+      // Only act on a fresh OAuth return (flag set before redirect)
+      if (sessionStorage.getItem('oauthPending')) {
+        sessionStorage.removeItem('oauthPending');
         history.replaceState(null, '', window.location.pathname);
         // Save user record
         _supabase.from('users').upsert(
@@ -2128,13 +2129,17 @@
       : 'Create account & send invite →';
   }
 
-  // ── GOOGLE OAUTH ────────────────────────────────────────────────────────���───
+  // ── GOOGLE OAUTH ─────────────────────────────────────────────────────────────
   async function handleGoogleModal() {
+    sessionStorage.setItem('oauthPending', '1');
     const { error } = await _supabase.auth.signInWithOAuth({
       provider: 'google',
       options:  { redirectTo: 'https://trysilai.com' }
     });
-    if (error) console.error('Google OAuth error:', error.message);
+    if (error) {
+      sessionStorage.removeItem('oauthPending');
+      console.error('Google OAuth error:', error.message);
+    }
   }
 
   // ── PARTNER SECTION ─────────────────────────────────────────────────────────
