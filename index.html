@@ -1945,6 +1945,48 @@
 
   const _isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
+  // ── OAUTH RETURN HANDLER ─────────────────────────────────────────────────────
+  // When Google OAuth redirects back, Supabase puts the session in the URL hash.
+  // Detect this and launch onboarding automatically.
+  _supabase.auth.onAuthStateChange((event, session) => {
+    if ((event === 'SIGNED_IN') && session) {
+      const meta  = session.user.user_metadata || {};
+      const first = meta.full_name
+        ? meta.full_name.split(' ')[0]
+        : (meta.name ? meta.name.split(' ')[0] : session.user.email.split('@')[0]);
+
+      // Clean the hash from the URL without reloading
+      if (window.location.hash.includes('access_token')) {
+        history.replaceState(null, '', window.location.pathname);
+      }
+
+      // Save / upsert user record
+      _supabase.from('users').upsert(
+        { email: session.user.email, name: first },
+        { onConflict: 'email' }
+      ).then(() => {});
+
+      // Launch onboarding
+      _launchOnboarding(first);
+    }
+  });
+
+  function _launchOnboarding(first) {
+    closeModal();
+    setTimeout(() => {
+      const avEl = document.getElementById('obAvA');
+      const bdEl = document.getElementById('obBadgeNames');
+      if (avEl) avEl.textContent = first.charAt(0).toUpperCase();
+      if (bdEl) bdEl.textContent = first + ' — signed up';
+      const ob = document.getElementById('obOverlay');
+      ob.style.display = 'flex';
+      ob.style.flexDirection = 'column';
+      requestAnimationFrame(() => requestAnimationFrame(() => ob.classList.add('slide-in')));
+      document.body.style.overflow = 'hidden';
+      obInitSliders();
+    }, 300);
+  }
+
   // ── MODAL OPEN/CLOSE ────────────────────────────────────────────────────────
   function openModal() {
     document.getElementById('modalOverlay').classList.add('open');
@@ -2074,19 +2116,7 @@
     }
 
     // 4. Launch onboarding
-    closeModal();
-    setTimeout(() => {
-      document.getElementById('obAvA').textContent = first.charAt(0).toUpperCase();
-      document.getElementById('obBadgeNames').textContent = first + ' — signed up';
-      const ob = document.getElementById('obOverlay');
-      ob.style.display = 'flex';
-      ob.style.flexDirection = 'column';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => ob.classList.add('slide-in'));
-      });
-      document.body.style.overflow = 'hidden';
-      obInitSliders();
-    }, 300);
+    _launchOnboarding(first);
   }
 
   // ── ONBOARDING LOGIC ──
